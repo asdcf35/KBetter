@@ -20,7 +20,7 @@ fs.readFile("New_Request-1681424094337.json", "utf8", function (err, data) {
       model: "game.question",
       pk: index+1,
       fields: {
-        category: d.questions[index].category,
+        category: "Science Bowl",
         difficulty: "HS",
         points: 10,
         content: d.questions[index].bonus_question,
@@ -30,7 +30,6 @@ fs.readFile("New_Request-1681424094337.json", "utf8", function (err, data) {
     })
   });
   atd = []
-  console.log(at);
   d.questions.forEach((element, index) => {
     let ans = ""
     if(d.questions[index].tossup_format == "Multiple Choice"){
@@ -42,25 +41,25 @@ fs.readFile("New_Request-1681424094337.json", "utf8", function (err, data) {
       model: "game.question",
       pk: index+1,
       fields: {
-        category: d.questions[index].category,
+        category: "Science Bowl",
         difficulty: "HS",
         points: 4,
         content: d.questions[index].tossup_question,
         answer: ans,
-        duration: 21.8,
+        duration: 30.8,
       },
     })
   });
-  console.log(atd);
-fLs = "{atd+at}"
-  fs.writeFile("fl.json", fLs, (err) => {
+  at.concat(atd);
+  string = "[";
+  at.forEach((element)=>{
+    string += JSON.stringify(element) + ","
+  })
+  string += "]"
+  fs.writeFile("new.json", string, (err) => {
     if (err)
       console.log(err);
-    else {
-      console.log("File written successfully\n");
-      console.log("The written has the following contents:");
-    }
   });
-});
+}); 
 
 console.log("readFile called");
